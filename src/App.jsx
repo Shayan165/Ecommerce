@@ -6,7 +6,7 @@ import Profile from "./components/Profile";
 import Register from "./components/Register";
 import Navbar from "./components/Navbar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
