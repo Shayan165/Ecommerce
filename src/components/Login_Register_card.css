@@ -1,0 +1,32 @@
+.btn-color{
+    background-color: #188754;
+    color: #fff;
+    
+  }
+  .btn-color:hover{
+    background-color: #1cd07c;
+    color: #fff;
+  }
+  
+  .register-user-icon{
+   
+    font-size: 100px;
+    margin: 30px;
+ 
+  }
+  
+  .login-user-icon{
+   
+    font-size: 100px;
+    margin: 30px;
+ 
+  }
+  
+  
+  .cardbody-color{
+    background-color: #ebf2fa;
+  }
+  
+  a{
+    text-decoration: none;
+  }
