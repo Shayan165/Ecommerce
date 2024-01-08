@@ -43,15 +43,7 @@ function Navbar() {
                   </NavLink>
                 </li>
               )}
-              {auth.conData?.isLoggedIn === true ? (
-                <li className="nav-item me-4">
-                  <NavLink className="nav-link" to="/dashboard">
-                    Dashboard
-                  </NavLink>
-                </li>
-              ) : (
-                ""
-              )}
+
               {auth.userData ? (
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/profile">
@@ -67,6 +59,25 @@ function Navbar() {
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/register">
                     Register
+                  </NavLink>
+                </li>
+              )}
+              {auth.conData === null || auth.conData?.isLoggedIn === false ? (
+                ""
+              ) : (
+                <li className="nav-item me-4">
+                  <NavLink className="nav-link" to="/store">
+                    Store
+                  </NavLink>
+                </li>
+              )}
+
+              {auth.conData === null || auth.conData?.isLoggedIn === false ? (
+                ""
+              ) : (
+                <li className="nav-item me-4">
+                  <NavLink className="nav-link" to="/dashboard">
+                    Dashboard
                   </NavLink>
                 </li>
               )}

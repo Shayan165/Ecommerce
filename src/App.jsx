@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Navbar from "./components/Navbar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Dashboard from "./components/Dashboard";
+import Store from "./components/Store";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
           element={
             <ProtectedRoutes>
               <Dashboard />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/store"
+          element={
+            <ProtectedRoutes>
+              <Store />
             </ProtectedRoutes>
           }
         />

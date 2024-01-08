@@ -83,7 +83,7 @@ function Register() {
       });
       success();
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/store");
       }, 4000);
     } else {
       unsuccess();
