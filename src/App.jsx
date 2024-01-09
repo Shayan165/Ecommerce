@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Dashboard from "./components/Dashboard";
 import Store from "./components/Store";
+import Admin from "./components/Admin";
+import AdminProtectedRoutes from "./components/AdminProtectedRoutes";
 
 function App() {
   return (
@@ -30,6 +32,14 @@ function App() {
             <ProtectedRoutes>
               <Store />
             </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectedRoutes>
+              <Admin />
+            </AdminProtectedRoutes>
           }
         />
         <Route path="*" element={<Error />} />

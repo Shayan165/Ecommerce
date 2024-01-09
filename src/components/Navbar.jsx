@@ -81,6 +81,17 @@ function Navbar() {
                   </NavLink>
                 </li>
               )}
+              {auth.conData === null ||
+              auth.conData.currentUserRole === null || auth.conData.currentUserRole === 'user' ||
+              auth.conData?.isLoggedIn === false ? (
+                ""
+              ) : (
+                <li className="nav-item me-4">
+                  <NavLink className="nav-link" to="/admin">
+                    Admin
+                  </NavLink>
+                </li>
+              )}
 
               {auth.conData === null || auth.conData?.isLoggedIn === false ? (
                 ""

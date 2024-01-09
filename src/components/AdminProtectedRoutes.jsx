@@ -2,13 +2,15 @@ import React from "react";
 import { useAuth } from "../context/usercontext";
 import { Navigate } from "react-router-dom";
 
-function ProtectedRoutes({ children }) {
+function AdminProtectedRoutes({ children }) {
   let auth = useAuth();
-  if (auth.conData === null || auth.conData.isLoggedIn === false) {
+  if (
+    auth.conData.currentUserRole !== "admin" 
+  ) {
     return <Navigate to="/" />;
-  }
+  } 
 
   return children;
 }
 
-export default ProtectedRoutes;
+export default AdminProtectedRoutes;

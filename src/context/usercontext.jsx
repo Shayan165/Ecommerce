@@ -6,7 +6,8 @@ export const AuthContextProvider = ({ children }) => {
   const [conData, setConData] = useState({
     isLoggedIn:false,
     currentUserName:null,
-    currentUserId:null
+    currentUserId:null,
+    currentUserRole:null
   });
 
 

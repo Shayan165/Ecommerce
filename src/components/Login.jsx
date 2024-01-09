@@ -47,13 +47,14 @@ function Login() {
       { method: "GET" }
     );
     if (response.ok) {
-      let responsebody = await response.json();
-      if (responsebody.length > 0) {
+      let responseBody = await response.json();
+      if (responseBody.length > 0) {
         auth.setConData({
           ...auth.conData,
           isLoggedIn: true,
-          currentUserName: responsebody[0]?.fullname,
-          currentUserId: responsebody[0]?.id,
+          currentUserName: responseBody[0]?.fullname,
+          currentUserId: responseBody[0]?.id,
+          currentUserRole:responseBody[0]?.role
         });
         success();
         setTimeout(() => {

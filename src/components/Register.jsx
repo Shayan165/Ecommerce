@@ -80,6 +80,7 @@ function Register() {
         isLoggedIn: true,
         currentUserName: responseBody?.fullname,
         currentUserId: responseBody?.id,
+        currentUserRole:responseBody?.role
       });
       success();
       setTimeout(() => {
