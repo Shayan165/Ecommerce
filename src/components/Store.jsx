@@ -6,14 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Store() {
-  let [brands, setBrands] = useState([]);
-  let [categories, setCategories] = useState([]);
-  let [products, setProducts] = useState([]);
   let [productToShow, setProductToShow] = useState([]);
   let [search, setSearch] = useState("");
 
   let auth = useAuth();
-console.log(products)
+  const { products, setProducts,brands, setBrands, categories, setCategories } = useAuth();
   const itemAdded = () =>
     toast.success("Added to Cart 🎊", {
       position: "top-right",
@@ -41,7 +38,7 @@ console.log(products)
       categoriesResponseBody.forEach((category) => {
         category.isChecked = true;
       });
-      setCategories(categoriesResponseBody);
+     setCategories(categoriesResponseBody);
 
       //get products
       let productResponse = await fetch(
@@ -128,7 +125,7 @@ console.log(products)
         }
       );
       if (orderResponse.ok) {
-        let orderResponsebody = await orderResponse.json();
+        let orderResponsebody = await orderResponse.json();    
 
         setProducts((products) => {
           let currentproduct = products.find((p) => p.id === product.id);
@@ -146,13 +143,18 @@ console.log(products)
         <h4 className="mt-2">
           <i className="fa-solid fa-box-open"></i> STORE
         </h4>
-        <input type="text" className="form-control" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+        <input
+          type="text"
+          className="form-control"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
       <div className="row container g-1">
         <div className="col-md-2 col-sm-12 border border-success ps-3">
           <h3>Brands</h3>
           {brands.map((brand) => (
-            <div className="form-check my-3 key={brand.id}">
+            <div className="form-check my-3" key={brand.id}>
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -169,7 +171,7 @@ console.log(products)
 
           <h3>Categories</h3>
           {categories.map((category) => (
-            <div className="form-check my-3 key={category.id}">
+            <div className="form-check my-3" key={category.id}>
               <input
                 className="form-check-input"
                 type="checkbox"

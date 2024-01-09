@@ -9,10 +9,12 @@ export const AuthContextProvider = ({ children }) => {
     currentUserId:null,
     currentUserRole:null
   });
-
+  let [brands, setBrands] = useState([]);
+  let [categories, setCategories] = useState([]);
+  let [products, setProducts] = useState([]);
 
   return (
-    <AuthContext.Provider value={{ conData,setConData }}>
+    <AuthContext.Provider value={{ conData,setConData,brands, setBrands ,categories, setCategories,products, setProducts}}>
       {children}
     </AuthContext.Provider>
   );
