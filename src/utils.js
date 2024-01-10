@@ -28,5 +28,5 @@ export const CategoryService = {
     return categories.find((category) => {
       return category.id == categoryId;
     });
-  }
+  },
 };

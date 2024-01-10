@@ -10,7 +10,14 @@ function Store() {
   let [search, setSearch] = useState("");
 
   let auth = useAuth();
-  const { products, setProducts,brands, setBrands, categories, setCategories } = useAuth();
+  const {
+    products,
+    setProducts,
+    brands,
+    setBrands,
+    categories,
+    setCategories,
+  } = useAuth();
   const itemAdded = () =>
     toast.success("Added to Cart 🎊", {
       position: "top-right",
@@ -38,7 +45,7 @@ function Store() {
       categoriesResponseBody.forEach((category) => {
         category.isChecked = true;
       });
-     setCategories(categoriesResponseBody);
+      setCategories(categoriesResponseBody);
 
       //get products
       let productResponse = await fetch(
@@ -125,7 +132,7 @@ function Store() {
         }
       );
       if (orderResponse.ok) {
-        let orderResponsebody = await orderResponse.json();    
+        let orderResponsebody = await orderResponse.json();
 
         setProducts((products) => {
           let currentproduct = products.find((p) => p.id === product.id);
@@ -138,10 +145,10 @@ function Store() {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="header text-bg-secondary p-3 my-4 d-flex gap-2 align-items-center">
+    <div className="container">
+      <div className="header text-bg-info p-3 my-4 d-flex gap-2 align-items-center rounded">
         <h4 className="mt-2">
-          <i className="fa-solid fa-box-open"></i> STORE
+          <i className="fa-solid text-white  me-2">SEARCH</i>
         </h4>
         <input
           type="text"
@@ -150,8 +157,8 @@ function Store() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="row container g-1">
-        <div className="col-md-2 col-sm-12 border border-success ps-3">
+      <div className="row ">
+        <div className="col-lg-2 col-md-2 col-sm-12 s ps-3">
           <h3>Brands</h3>
           {brands.map((brand) => (
             <div className="form-check my-3" key={brand.id}>
@@ -186,15 +193,24 @@ function Store() {
             </div>
           ))}
         </div>
-        <div className="col-md-9 col-sm-12 border border-primary">
+
+        <div className="col-lg-10 col-md-9 col-sm-12">
           <div className="d-flex flex-wrap justify-content-evenly">
-            {productToShow.map((prod) => (
-              <Product
-                key={prod.id}
-                product={prod}
-                onAddToClick={onAddToClick}
-              />
-            ))}
+            {productToShow.length === 0 ? (
+              <div
+                className="spinner-border text-info d-flex justify-content-center align-items-center"
+                style={{ marginTop: "15rem", width: "5rem", height: "5rem" }}
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              productToShow.map((prod) => (
+                <div key={prod.id} className="col-lg-4 col-md-6 mb-4">
+                  <Product product={prod} onAddToClick={onAddToClick} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

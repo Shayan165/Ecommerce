@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Dashboard() {
-  let [orders, setOrders] = useState([]);
+  const [ orders, setOrders ] = useState([]);
   let auth = useAuth();
 
   let loadDataFromDatabase = async () => {
@@ -17,9 +17,12 @@ function Dashboard() {
     if (orderresponse.ok) {
       let orderresponsebody = await orderresponse.json();
 
-      let productresponse = await fetch(`https://ecomm-8w50.onrender.com/products`, {
-        method: "GET",
-      });
+      let productresponse = await fetch(
+        `https://ecomm-8w50.onrender.com/products`,
+        {
+          method: "GET",
+        }
+      );
 
       if (productresponse.ok) {
         let productbody = await productresponse.json();
@@ -85,9 +88,9 @@ function Dashboard() {
 
       if (removeResponse.ok) {
         await loadDataFromDatabase();
-        Remove_success(); 
+        Remove_success();
       } else {
-        Remove_unsuccess(); 
+        Remove_unsuccess();
       }
     }
   };

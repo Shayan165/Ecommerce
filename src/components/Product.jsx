@@ -7,10 +7,10 @@ function Product({ product,onAddToClick }) {
       className="card p-4 bg-warning"
       style={{ width: "350px", margin: "10px" }}
     >
-      <h5>
+      <h5 className="text-center">
         <i className="fa-solid fa-arrow-right"></i> {product.productName}
       </h5>
-      <h2 className="text-info">
+      <h2  className="text-center">
         <address>${product.price.toFixed(2)}</address>
       </h2>
 
@@ -19,7 +19,7 @@ function Product({ product,onAddToClick }) {
         <h6>#{product.category?.categoryName}</h6>
       </div>
 
-      <div className="container">
+      <div className="container-fluid">
         {[...Array(product.rating).keys()].map((n, index) => {
           return <i className="fa-solid fa-star" key={index}></i>;
         })}
@@ -28,10 +28,10 @@ function Product({ product,onAddToClick }) {
         })}
       </div>
       <div className="ms-auto">
-        {product.isOrdered ? (
+        {product.isOrdered  ? (
           <p className="text-success fw-bolder">Added To Cart!</p>
         ) : (
-          <button onClick={()=>onAddToClick(product)} className="btn btn-info">Add To Cart</button>
+          <button onClick={()=>onAddToClick(product)} className="btn btn-info text-white">Add To Cart</button>
         )}
       </div>
     </div>

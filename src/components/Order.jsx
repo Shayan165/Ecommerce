@@ -15,12 +15,17 @@ function Order({
     <>
       <div className="card my-4 text-center">
         <div className="card-body cardbody-color px-5">
-          <table className="table table-sm table-borderless m-2">
-            <h5>{productName}</h5>
+          <table className="table table-sm table-borderless">
+            <thead>
+              <tr>
+                <th><h5>{productName}</h5></th>
+              </tr>
+            </thead>
+            
 
             <tbody>
               <tr>
-                <td>
+                <td className="py-2">
                   <i
                     style={{ backgroundColor: "#ebf2fa" }}
                     className="fa-solid fa-bag-shopping"
@@ -29,7 +34,7 @@ function Order({
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="py-3">
                   <i
                     style={{ backgroundColor: "#ebf2fa" }}
                     className="fa-solid fa-tag"
