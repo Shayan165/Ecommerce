@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Dashboard() {
-  const [ orders, setOrders ] = useState([]);
+  const [orders, setOrders] = useState([]);
   let auth = useAuth();
 
   let loadDataFromDatabase = async () => {
@@ -160,10 +160,7 @@ function Dashboard() {
             </h4>
 
             {previousorders.length === 0 ? (
-              <div
-                style={{ marginTop: "5rem" }}
-                className="d-flex flex-column align-items-center"
-              >
+              <div className="d-flex flex-column align-items-center">
                 <h3 className="text-center text-dark mt-4">No items</h3>
                 <img width="200" src={emptycart} alt="" />
               </div>
@@ -181,7 +178,6 @@ function Dashboard() {
                 />
               ))
             )}
-            
           </div>
           <div className="col-md-6 mb-5">
             <h4 className="text-center text-dark mt-4">
@@ -189,10 +185,7 @@ function Dashboard() {
               <span className="badge bg-info ms-2">{getcart.length}</span>
             </h4>
             {getcart.length === 0 ? (
-              <div
-                style={{ marginTop: "5rem" }}
-                className="d-flex flex-column align-items-center"
-              >
+              <div className="d-flex flex-column align-items-center">
                 <h3 className="text-center text-dark mt-4">No items</h3>
                 <img width="200" src={emptycart} alt="" />
               </div>
@@ -212,7 +205,6 @@ function Dashboard() {
                 />
               ))
             )}
-            
           </div>
         </div>
       </div>

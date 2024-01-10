@@ -5,6 +5,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "./Login_Register_card.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import './Register.css'
 
 function Register() {
   const [registerData, setRegisterData] = useState({
@@ -101,7 +102,7 @@ function Register() {
 
             <div className="card my-4">
               <div className="card-body cardbody-color px-5">
-                <div className="text-center">
+                <div className="text-center user-add-icon">
                   <i className="fa-solid fa-user-plus register-user-icon"></i>
                 </div>
 

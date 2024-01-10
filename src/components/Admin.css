@@ -1,0 +1,8 @@
+
+@media (max-width:575px){
+    .w3-table td, .w3-table th, .w3-table-all td, .w3-table-all th {
+        padding: 8px 4px;
+        text-align: center;
+    }
+}
+

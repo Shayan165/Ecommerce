@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
+import './Admin.css'
 
 function Admin() {
   let { products } = useAuth();
@@ -72,7 +73,7 @@ function Admin() {
 
   return (
     <div className="container mt-5">
-      <div className="w3-container">
+      <div className="w3-responsive">
         <input
           className="w3-input  mb-3"
           style={{ width: "30%", paddingLeft: "30px" }}

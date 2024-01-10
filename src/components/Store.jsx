@@ -158,7 +158,7 @@ function Store() {
         />
       </div>
       <div className="row ">
-        <div className="col-lg-2 col-md-2 col-sm-12 s ps-3">
+        <div className="col-lg-2 col-md-4 col-sm-12  ps-3">
           <h3>Brands</h3>
           {brands.map((brand) => (
             <div className="form-check my-3" key={brand.id}>
@@ -194,7 +194,7 @@ function Store() {
           ))}
         </div>
 
-        <div className="col-lg-10 col-md-9 col-sm-12">
+        <div className="col-lg-10 col-md-6 col-sm-12">
           <div className="d-flex flex-wrap justify-content-evenly">
             {productToShow.length === 0 ? (
               <div
@@ -206,7 +206,7 @@ function Store() {
               </div>
             ) : (
               productToShow.map((prod) => (
-                <div key={prod.id} className="col-lg-4 col-md-6 mb-4">
+                <div key={prod.id} className="">
                   <Product product={prod} onAddToClick={onAddToClick} />
                 </div>
               ))
