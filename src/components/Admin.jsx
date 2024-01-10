@@ -41,12 +41,22 @@ function Admin() {
       accessorKey: "rating",
     },
   ];
-
+  const itemsPerPage = 5;
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const pageCount = Math.ceil(data.length / itemsPerPage);
+
+  const slicedData = useMemo(() => {
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return data.slice(startIndex, endIndex);
+  }, [currentPage, data]);
+
 
   const table = useReactTable({
-    data,
+    data:slicedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -95,7 +105,7 @@ function Admin() {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
+            {table.getRowModel().rows.length > 0 ? (table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id}>
@@ -103,33 +113,37 @@ function Admin() {
                   </td>
                 ))}
               </tr>
-            ))}
+            ))):(<tr>
+              <td colSpan={columns.length}>
+                No data found for the current search.
+              </td>
+            </tr>)}
           </tbody>
         </table>
         <div className="my-4 ms-2">
           <button
             className="w3-button w3-round-xxlarge w3-blue"
-            onClick={() => table.setPageIndex(0)}
+            onClick={() => setCurrentPage(0)}
           >
             First page
           </button>
           <button
-            disabled={!table.getCanPreviousPage()}
-            onClick={() => table.previousPage()}
+            disabled={currentPage === 0}
+            onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
             className="w3-button w3-circle w3-blue mx-3"
           >
             -
           </button>
           <button
-            disabled={!table.getCanNextPage()}
-            onClick={() => table.nextPage()}
+            disabled={currentPage === pageCount - 1}
+            onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
             className="w3-button w3-circle w3-blue"
           >
             +
           </button>
           <button
             className="w3-button w3-round-xxlarge w3-blue mx-3"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            onClick={() => setCurrentPage(pageCount - 1)}
           >
             Last page
           </button>

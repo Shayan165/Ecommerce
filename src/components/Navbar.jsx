@@ -1,32 +1,12 @@
-import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/usercontext";
 
 function Navbar() {
-  const [orders, setOrders] = useState([]);
   let auth = useAuth();
 
   function handleLogout() {
     auth.setConData(null);
   }
-  let loadDataFromDatabase = async () => {
-    let orderresponse = await fetch(
-      `https://ecomm-8w50.onrender.com/orders?userId=${auth.conData?.currentUserId}`,
-      { method: "GET" }
-    );
-
-    if (orderresponse.ok) {
-      let orderresponsebody = await orderresponse.json();
-      setOrders(orderresponsebody);
-    }
-  };
-  useEffect(() => {
-    loadDataFromDatabase();
-  }, [auth.conData?.currentUserId]);
-
-  let itemsinCart = orders.filter(
-    (order) => order.isPaymentCompleted === false
-  );
 
   return (
     <>
@@ -133,16 +113,6 @@ function Navbar() {
                       </button>
                     </li>
                   </ul>
-                </div>
-              )}
-              {auth.conData === null || auth.conData?.isLoggedIn === false ? (
-                ""
-              ) : (
-                <div className="ms-5 d-flex align-items-center">
-                  <i className="fa-solid fa-cart-shopping fs-4"></i>
-                  <span className="badge text-bg-info text-white ms-2">
-                    {itemsinCart.length}
-                  </span>
                 </div>
               )}
             </ul>

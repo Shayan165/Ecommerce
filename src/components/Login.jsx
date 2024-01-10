@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/usercontext";
-import { useNavigate, NavLink, Await } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import "./Login_Register_card.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -54,7 +54,7 @@ function Login() {
           isLoggedIn: true,
           currentUserName: responseBody[0]?.fullname,
           currentUserId: responseBody[0]?.id,
-          currentUserRole:responseBody[0]?.role
+          currentUserRole: responseBody[0]?.role,
         });
         success();
         setTimeout(() => {

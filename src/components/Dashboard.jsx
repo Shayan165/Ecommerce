@@ -168,20 +168,20 @@ function Dashboard() {
                 <img width="200" src={emptycart} alt="" />
               </div>
             ) : (
-              ""
+              previousorders.map((order, index) => (
+                <Order
+                  key={index}
+                  orderId={order.id}
+                  productId={order.productId}
+                  userId={order.userId}
+                  isPaymentCompleted={order.isPaymentCompleted}
+                  quantity={order.quantity}
+                  price={order.product?.price}
+                  productName={order.product?.productName}
+                />
+              ))
             )}
-            {previousorders.map((order, index) => (
-              <Order
-                key={index}
-                orderId={order.id}
-                productId={order.productId}
-                userId={order.userId}
-                isPaymentCompleted={order.isPaymentCompleted}
-                quantity={order.quantity}
-                price={order.product.price}
-                productName={order.product.productName}
-              />
-            ))}
+            
           </div>
           <div className="col-md-6 mb-5">
             <h4 className="text-center text-dark mt-4">
@@ -197,22 +197,22 @@ function Dashboard() {
                 <img width="200" src={emptycart} alt="" />
               </div>
             ) : (
-              ""
+              getcart.map((order, index) => (
+                <Order
+                  key={index}
+                  orderId={order.id}
+                  productId={order.productId}
+                  userId={order.userId}
+                  isPaymentCompleted={order.isPaymentCompleted}
+                  quantity={order.quantity}
+                  price={order.product?.price}
+                  productName={order.product?.productName}
+                  BuynowClick={BuynowClick}
+                  removeItem={removeItem}
+                />
+              ))
             )}
-            {getcart.map((order, index) => (
-              <Order
-                key={index}
-                orderId={order.id}
-                productId={order.productId}
-                userId={order.userId}
-                isPaymentCompleted={order.isPaymentCompleted}
-                quantity={order.quantity}
-                price={order.product.price}
-                productName={order.product.productName}
-                BuynowClick={BuynowClick}
-                removeItem={removeItem}
-              />
-            ))}
+            
           </div>
         </div>
       </div>

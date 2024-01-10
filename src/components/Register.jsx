@@ -15,6 +15,7 @@ function Register() {
     gender: "",
     country: "",
     receivenewsletters: false,
+    role: "user",
   });
 
   let navigate = useNavigate();
@@ -80,7 +81,7 @@ function Register() {
         isLoggedIn: true,
         currentUserName: responseBody?.fullname,
         currentUserId: responseBody?.id,
-        currentUserRole:responseBody?.role
+        currentUserRole: responseBody?.role,
       });
       success();
       setTimeout(() => {
