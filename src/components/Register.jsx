@@ -5,7 +5,25 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "./Login_Register_card.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import './Register.css'
+import "./Register.css";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+  fullname: Yup.string()
+    .min(3, "Full Name must be at least 3 characters")
+    .required("Full Name is required"),
+  dateofbirth: Yup.date().required("Date of Birth is required"),
+  gender: Yup.string().required("Gender is required"),
+  country: Yup.string().required("Country is required"),
+  receivenewsletters: Yup.bool(),
+});
 
 function Register() {
   const [registerData, setRegisterData] = useState({
@@ -42,7 +60,6 @@ function Register() {
 
   let auth = useAuth();
 
-  // Registration Toast
   const success = () =>
     toast.success("Registration Successfull 😍", {
       position: "top-right",
@@ -54,6 +71,7 @@ function Register() {
       progress: undefined,
       theme: "colored",
     });
+
   const unsuccess = () =>
     toast.error("Please Enter Credentials 😓", {
       position: "top-right",
@@ -66,14 +84,15 @@ function Register() {
       theme: "colored",
     });
 
-  let handleRegister = async () => {
+  let handleRegister = async (values, { setSubmitting }) => {
     let response = await fetch("https://ecomm-8w50.onrender.com/users", {
       method: "POST",
-      body: JSON.stringify(registerData),
+      body: JSON.stringify(values),
       headers: {
         "Content-type": "application/json",
       },
     });
+
     if (response.ok) {
       let responseBody = await response.json();
 
@@ -91,6 +110,8 @@ function Register() {
     } else {
       unsuccess();
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -106,171 +127,204 @@ function Register() {
                   <i className="fa-solid fa-user-plus register-user-icon"></i>
                 </div>
 
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Email
-                  </span>
-
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="UserEmail"
-                    aria-describedby="emailHelp"
-                    placeholder="User Email"
-                    name="email"
-                    value={registerData.email}
-                    onChange={handlechanges}
-                  />
-                </div>
-
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Password
-                  </span>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password1"
-                    placeholder="password"
-                    name="password"
-                    value={registerData.password}
-                    onChange={handlechanges}
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Username
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="password2"
-                    placeholder="Username"
-                    name="fullname"
-                    value={registerData.fullname}
-                    onChange={handlechanges}
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    DOB
-                  </span>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="password3"
-                    placeholder="Date"
-                    name="dateofbirth"
-                    value={registerData.dateofbirth}
-                    onChange={handlechanges}
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Gender
-                  </span>
-                  <div className="form-check mt-2 mx-3">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="gender"
-                      id="flexRadioDefault1"
-                      value="male"
-                      onChange={handlechanges}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexRadioDefault1"
-                    >
-                      Male
-                    </label>
-                  </div>
-                  <div className="form-check mt-2">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="gender"
-                      id="flexRadioDefault2"
-                      value="female"
-                      onChange={handlechanges}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexRadioDefault1"
-                    >
-                      FeMale
-                    </label>
-                  </div>
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Country
-                  </span>
-                  <select
-                    className="form-select ms-5"
-                    aria-label="Default select example"
-                    value={registerData.country}
-                    onChange={handlechanges}
-                    name="country"
-                  >
-                    <option>Select Country</option>
-                    {countries.map((country) => {
-                      return (
-                        <option key={country.id} value={country.countryname}>
-                          {country.countryname}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div className="form-check text-center mb-3">
-                  <label
-                    className="form-check-label fs-4"
-                    htmlFor="flexCheckDefault"
-                  >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="receivenewsletters"
-                      value={registerData.receivenewsletters}
-                      id="flexCheckDefault"
-                      checked={registerData.receivenewsletters}
-                      onChange={handlecheck}
-                    />
-                    Receive News Letter
-                  </label>
-                </div>
-                <div className="text-center">
-                  <button
-                    type="submit"
-                    className="btn btn-color px-5 mb-5 w-100"
-                    onClick={handleRegister}
-                  >
-                    Register
-                  </button>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                  />
-                </div>
-                <div
-                  id="emailHelp"
-                  className="form-text text-center mb-5 text-dark"
+                <Formik
+                  initialValues={registerData}
+                  validationSchema={validationSchema}
+                  onSubmit={handleRegister}
                 >
-                  <NavLink to="/" className="text-dark fw-bold">
-                    {" "}
-                    Already a user? sign-in
-                  </NavLink>
-                </div>
+                  {({ errors, touched }) => (
+                    <Form>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            Email
+                          </span>
+
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="UserEmail"
+                            aria-describedby="emailHelp"
+                            placeholder="User Email"
+                            name="email"
+                          />
+                        </div>
+                        {errors.email && touched.email && (
+                          <div className="error">{errors.email}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            Password
+                          </span>
+
+                          <Field
+                            type="password"
+                            className="form-control"
+                            id="password1"
+                            placeholder="password"
+                            name="password"
+                          />
+                        </div>
+                        {errors.password && touched.password && (
+                          <div className="error">{errors.password}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            Username
+                          </span>
+
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="password2"
+                            placeholder="Username"
+                            name="fullname"
+                          />
+                        </div>
+                        {errors.fullname && touched.fullname && (
+                          <div className="error">{errors.fullname}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            DOB
+                          </span>
+
+                          <Field
+                            type="date"
+                            className="form-control"
+                            id="password3"
+                            placeholder="Date"
+                            name="dateofbirth"
+                          />
+                        </div>
+                        {errors.dateofbirth && touched.dateofbirth && (
+                          <div className="error">{errors.dateofbirth}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            Gender
+                          </span>
+
+                          <div className="form-check mt-2 mx-3">
+                            <Field
+                              className="form-check-input"
+                              type="radio"
+                              name="gender"
+                              id="flexRadioDefault1"
+                              value="male"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexRadioDefault1"
+                            >
+                              Male
+                            </label>
+                          </div>
+
+                          <div className="form-check mt-2">
+                            <Field
+                              className="form-check-input"
+                              type="radio"
+                              name="gender"
+                              id="flexRadioDefault2"
+                              value="female"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexRadioDefault1"
+                            >
+                              FeMale
+                            </label>
+                          </div>
+                        </div>
+                        {errors.gender && touched.gender && (
+                          <div className="error">{errors.gender}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <span className="input-group-text" id="basic-addon1">
+                            Country
+                          </span>
+
+                          <Field
+                            as="select"
+                            className="form-select ms-5"
+                            aria-label="Default select example"
+                            name="country"
+                          >
+                            <option>Select Country</option>
+                            {countries.map((country) => (
+                              <option
+                                key={country.id}
+                                value={country.countryname}
+                              >
+                                {country.countryname}
+                              </option>
+                            ))}
+                          </Field>
+                        </div>
+                        {errors.country && touched.country && (
+                          <div className="error">{errors.country}</div>
+                        )}
+                      </div>
+
+                      <div className="form-check text-center mb-3">
+                        <label
+                          className="form-check-label fs-4"
+                          htmlFor="flexCheckDefault"
+                        >
+                          <Field
+                            className="form-check-input"
+                            type="checkbox"
+                            name="receivenewsletters"
+                            id="flexCheckDefault"
+                          />
+                          Receive News Letter
+                        </label>
+                      </div>
+
+                      <div className="text-center">
+                        <button
+                          type="submit"
+                          className="btn btn-color px-5 mb-5 w-100"
+                        >
+                          Register
+                        </button>
+                        <ToastContainer
+                          position="top-right"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                        />
+                      </div>
+
+                      <div
+                        id="emailHelp"
+                        className="form-text text-center mb-5 text-dark"
+                      >
+                        <NavLink to="/" className="text-dark fw-bold">
+                          {" "}
+                          Already a user? sign-in
+                        </NavLink>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>

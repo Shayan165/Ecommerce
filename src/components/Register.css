@@ -1,5 +1,12 @@
+.error {
+    color: red;
+    font-size: 14px; /* Default font size */
+  }
+
+
 @media (max-width:768px){
 .user-add-icon i{
 font-size:5rem;
 }
 }
+
